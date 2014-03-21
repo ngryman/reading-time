@@ -1,5 +1,9 @@
 # reading-time
 
+[![NPM](http://img.shields.io/npm/v/reading-time.svg)](https://www.npmjs.org/package/reading-time) [![Build Status](http://img.shields.io/travis/ngryman/reading-time.svg)](https://travis-ci.org/ngryman/reading-time) [![Dependency Status](http://img.shields.io/gemnasium/ngryman/reading-time.png)](https://gemnasium.com/ngryman/reading-time) [![Gittip](http://img.shields.io/gittip/ngryman.svg)](https://www.gittip.com/ngryman/)
+
+<br>
+
 [Medium]'s like reading time estimation.
 
 `reading-time` helps you estimate how long an article will take to read.
@@ -8,7 +12,7 @@ It works perfectly with plain text, but also with `markdown` or `html`.
 Note that it's focused on performance and simplicity, so the number of words it will extract from other formats than
 plain text can vary a little. But this is an estimation right?
 
-[Medium](https://medium.com)
+[Medium]: https://medium.com
 
 ## Installation
 
