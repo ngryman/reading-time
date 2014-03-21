@@ -1,0 +1,17 @@
+# node
+node_modules/
+npm-debug.log
+
+# intellij
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Desktop.ini
+._*
+Thumbs.db
+.Spotlight-V100
+.Trashes

@@ -1,0 +1,33 @@
+{
+  "name": "reading-time",
+  "version": "0.0.1",
+  "description": "Medium's like reading time estimation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngryman/reading-time.git"
+  },
+  "keywords": [
+    "read",
+    "time",
+    "read time",
+    "reading time",
+    "medium",
+    "words per minute"
+  ],
+  "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "load-grunt-tasks": "~0.1.0",
+    "grunt-contrib-jshint": "~0.6.2",
+    "grunt-mocha-test": "~0.6.3",
+    "time-grunt": "~0.3.1",
+    "chai": "~1.7.2",
+    "curry": "~1.0.2"
+  }
+}
