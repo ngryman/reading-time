@@ -32,7 +32,6 @@ var stats = readingTime(text);
 //   time: 60000.
 //   words: 200
 // }
-}
 ```
 
 ## Author
