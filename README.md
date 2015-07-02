@@ -34,6 +34,24 @@ var stats = readingTime(text);
 // }
 ```
 
+## Streaming usage
+
+This mode enables you to process large files with a flat memory consumption.
+Because it does not convert into strings, it should also be decently faster, especially with large volumes of data.
+
+```javascript
+var readingTime = require('reading-time/stream');
+var analyser = readingTime({ wordsPerMinutes: 200 });
+var fs = require('fs');
+
+fs.createReadStream('path/to/file.txt')
+	.pipe(analyser)
+	.pipe(process.stdout)
+	.on('end', function(){
+		console.log(analyser.stats);
+	});
+```
+
 ## Author
 
 | [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |

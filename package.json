@@ -22,12 +22,15 @@
   ],
   "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "through2": "^2.0.0"
+  },
   "devDependencies": {
     "chai": "^3.0.0",
     "curry": "~1.0.2",
     "jshint": "^2.8.0",
     "load-grunt-tasks": "~0.1.0",
+    "memorystream": "^0.3.1",
     "mocha": "^2.2.5",
     "time-grunt": "~0.3.1"
   }
