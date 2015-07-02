@@ -4,7 +4,9 @@
   "description": "Medium's like reading time estimation.",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "npm run test-jshint && npm run test-unit",
+    "test-jshint": "jshint ./lib",
+    "test-unit": "mocha --reporter spec ./test/*.js"
   },
   "repository": {
     "type": "git",
@@ -22,12 +24,11 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "chai": "^3.0.0",
+    "curry": "~1.0.2",
+    "jshint": "^2.8.0",
     "load-grunt-tasks": "~0.1.0",
-    "grunt-contrib-jshint": "~0.6.2",
-    "grunt-mocha-test": "~0.6.3",
-    "time-grunt": "~0.3.1",
-    "chai": "~1.7.2",
-    "curry": "~1.0.2"
+    "mocha": "^2.2.5",
+    "time-grunt": "~0.3.1"
   }
 }
