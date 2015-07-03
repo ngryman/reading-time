@@ -4,9 +4,10 @@
   "description": "Medium's like reading time estimation.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-jshint && npm run test-unit",
-    "test-jshint": "jshint ./lib",
-    "test-unit": "mocha --reporter spec ./test/*.js"
+    "lint": "jshint lib test",
+    "spec": "mocha",
+    "test": "npm run lint && npm run spec",
+    "watch": "onchange {lib,test}/*.js -- npm test"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "chai": "^3.0.0",
     "curry": "~1.0.2",
     "jshint": "^2.8.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "onchange": "^1.1.0"
   }
 }
