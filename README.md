@@ -22,6 +22,8 @@ npm install reading-time --production
 
 ## Usage
 
+### Classic
+
 ```javascript
 var readingTime = require('reading-time');
 
@@ -32,6 +34,16 @@ var stats = readingTime(text);
 //   time: 60000.
 //   words: 200
 // }
+```
+
+### Stream
+
+```javascript
+var readingTime = require('reading-time/stream');
+
+fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
+	// ...
+});
 ```
 
 ## Author
