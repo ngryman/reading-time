@@ -25,7 +25,12 @@ var testTime = curry(function(words, expect, done) {
 		text = generateText(words);
 	else {
 		text = words;
-		words = 3;
+		if (~text.indexOf(' '))
+			words = words.split(/.+ +.+/g).length + 1;
+		else if (text.length > 0)
+			words = 1
+		else
+			words = 0
 	}
 
 	var res = readingTime(text);
@@ -106,6 +111,16 @@ describe('readingTime()', function() {
 	it('should handle text containing markdown links', testTime('word [blog](http://ngryman.sh) word', {
 		text: '1 min read',
 		time: 900
+	}));
+
+	it('should handle text containing one word correctly', testTime('0', {
+		text: '1 min read',
+		time: 300
+	}));
+
+	it('should handle text containing a black hole', testTime('', {
+		text: '0 min read',
+		time: 0
 	}));
 
 });
