@@ -28,9 +28,9 @@ var testTime = curry(function(words, expect, done) {
 		if (~text.indexOf(' '))
 			words = words.split(/.+ +.+/g).length + 1;
 		else if (text.length > 0)
-			words = 1
+			words = 1;
 		else
-			words = 0
+			words = 0;
 	}
 
 	var res = readingTime(text);
