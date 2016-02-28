@@ -1,6 +1,6 @@
 # reading-time
 
-[![NPM](http://img.shields.io/npm/v/reading-time.svg)](https://www.npmjs.org/package/reading-time) [![Build Status](http://img.shields.io/travis/ngryman/reading-time.svg)](https://travis-ci.org/ngryman/reading-time) [![Dependency Status](http://img.shields.io/gemnasium/ngryman/reading-time.png)](https://gemnasium.com/ngryman/reading-time) [![Gittip](http://img.shields.io/gittip/ngryman.svg)](https://www.gittip.com/ngryman/)
+[![NPM](http://img.shields.io/npm/v/reading-time.svg)](https://www.npmjs.org/package/reading-time) [![Build Status](http://img.shields.io/travis/ngryman/reading-time.svg)](https://travis-ci.org/ngryman/reading-time)
 
 <br>
 
@@ -16,7 +16,7 @@ plain text can vary a little. But this is an estimation right?
 
 ## Installation
 
-```bash
+```sh
 npm install reading-time --production
 ```
 
