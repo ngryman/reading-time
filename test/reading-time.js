@@ -19,8 +19,9 @@ chai.should();
  * Test helpers.
  */
 
-var testTime = curry(function(words, expect, done) {
+var test = curry(function(words, options, expect, done) {
 	var text;
+
 	if ('number' == typeof words)
 		text = generateText(words);
 	else {
@@ -33,7 +34,7 @@ var testTime = curry(function(words, expect, done) {
 			words = 0;
 	}
 
-	var res = readingTime(text);
+	var res = readingTime(text, options);
 	res.should.have.property('text', expect.text);
 	res.should.have.property('words', words);
 	// floating point funkyness
@@ -63,64 +64,69 @@ function generateText(words) {
  */
 describe('readingTime()', function() {
 
-	it('should handle less than 1 minute text', testTime(2, {
+	it('should handle less than 1 minute text', test(2, {}, {
 		text: '1 min read',
 		time: 600
 	}));
 
-	it('should handle less than 1 minute text', testTime(50, {
+	it('should handle less than 1 minute text', test(50, {}, {
 		text: '1 min read',
 		time: 15000
 	}));
 
-	it('should handle 1 minute text', testTime(100, {
+	it('should handle 1 minute text', test(100, {}, {
 		text: '1 min read',
 		time: 30000
 	}));
 
-	it('should handle 2 minutes text', testTime(300, {
+	it('should handle 2 minutes text', test(300, {}, {
 		text: '2 min read',
 		time: 90000
 	}));
 
-	it('should handle a very long text', testTime(500, {
+	it('should handle a very long text', test(500, {}, {
 		text: '3 min read',
 		time: 150000
 	}));
 
-	it('should handle text containing multiple successive whitespaces', testTime('word  word    word', {
+	it('should handle text containing multiple successive whitespaces', test('word  word    word', {}, {
 		text: '1 min read',
 		time: 900
 	}));
 
-	it('should handle text starting with whitespaces', testTime('   word word word', {
+	it('should handle text starting with whitespaces', test('   word word word', {}, {
 		text: '1 min read',
 		time: 900
 	}));
 
-	it('should handle text ending with whitespaces', testTime('word word word   ', {
+	it('should handle text ending with whitespaces', test('word word word   ', {}, {
 		text: '1 min read',
 		time: 900
 	}));
 
-	it('should handle text containing links', testTime('word http://ngryman.sh word', {
+	it('should handle text containing links', test('word http://ngryman.sh word', {}, {
 		text: '1 min read',
 		time: 900
 	}));
 
-	it('should handle text containing markdown links', testTime('word [blog](http://ngryman.sh) word', {
+	it('should handle text containing markdown links', test('word [blog](http://ngryman.sh) word', {}, {
 		text: '1 min read',
 		time: 900
 	}));
 
-	it('should handle text containing one word correctly', testTime('0', {
+	it('should handle text containing one word correctly', test('0', {}, {
 		text: '1 min read',
 		time: 300
 	}));
 
-	it('should handle text containing a black hole', testTime('', {
+	it('should handle text containing a black hole', test('', {}, {
 		text: '0 min read',
 		time: 0
 	}));
+
+  it('should accept a custom word per minutes value', test(200, { wordsPerMinute: 100 }, {
+    text: '2 min read',
+    time: 120000
+  }));
 
 });
