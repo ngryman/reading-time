@@ -4,7 +4,7 @@
   "description": "Medium's like reading time estimation.",
   "main": "index.js",
   "scripts": {
-    "lint": "jshint lib test",
+    "lint": "eslint lib test",
     "spec": "mocha",
     "test": "npm run lint && npm run spec",
     "watch": "onchange {lib,test}/*.js -- npm test"
@@ -24,7 +24,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "curry": "^1.2.0",
-    "jshint": "^2.9.2",
+    "eslint": "^3.8.1",
+    "eslint-config-ngryman": "^1.7.0",
     "mocha": "^2.5.2",
     "onchange": "^2.4.0"
   }
