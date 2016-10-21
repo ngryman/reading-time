@@ -1,6 +1,6 @@
 /*!
  * reading-time
- * Copyright (c) 2014 Nicolas Gryman <ngryman@gmail.com>
+ * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
  * MIT Licensed
  */
 
