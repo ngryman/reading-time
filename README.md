@@ -1,7 +1,5 @@
 # reading-time
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ngryman/reading-time.svg)](https://greenkeeper.io/)
-
 [![NPM](http://img.shields.io/npm/v/reading-time.svg)](https://www.npmjs.org/package/reading-time) [![Build Status](http://img.shields.io/travis/ngryman/reading-time.svg)](https://travis-ci.org/ngryman/reading-time)
 
 <br>
