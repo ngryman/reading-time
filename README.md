@@ -46,6 +46,14 @@ fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
 });
 ```
 
+## API
+
+`readingTime(text, options)`
+
+ - `text`: the text to analyze
+ - `options.wordsPerMinute`: the words per minute an average reader can read (default: 200)
+ - `options.wordBound`: a function than return if a character is considered as a word bound (default: spaces, new lines and tabulations)
+
 ## Author
 
 | [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |
