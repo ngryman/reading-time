@@ -46,6 +46,13 @@ fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
 });
 ```
 
+### Adjust Reading Speed for Estimation
+
+```javascript
+// default: 200
+readingTime(text, {wordsPerMinute: 250});
+```
+
 ## Author
 
 | [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |
