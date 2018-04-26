@@ -37,6 +37,21 @@ var stats = readingTime(text);
 // }
 ```
 
+### With different i18n locale
+
+```javascript
+var readingTime = require('reading-time');
+
+var stats = readingTime(text, {locale: 'es-ES'});
+// ->
+// stats: {
+//   text: '1 min read',
+//   time: 60000.
+//   words: 200
+//   i18nText: '1 minuto'
+// }
+```
+
 ### Stream
 
 ```javascript
