@@ -33,6 +33,7 @@ var stats = readingTime(text);
 //   text: '1 min read',
 //   time: 60000.
 //   words: 200
+//   i18nText: '1 minute'
 // }
 ```
 
@@ -53,6 +54,7 @@ fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
  - `text`: the text to analyze
  - `options.wordsPerMinute`: the words per minute an average reader can read (default: 200)
  - `options.wordBound`: a function than return if a character is considered as a word bound (default: spaces, new lines and tabulations)
+ - `options.locale`: i18n Locale for multilanguage text based on moment (default: en-GB)
 
 ## Author
 
