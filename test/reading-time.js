@@ -46,6 +46,9 @@ var test = curry(function(words, options, expect, done) {
   res.should.have.property('time').that.is.within(
     expect.time - 0.000001, expect.time + 0.000001)
 
+  // Moment multi language
+  res.should.have.property('i18nText', expect.i18nText)
+
   done()
 })
 
@@ -71,80 +74,99 @@ function generateText(words) {
  */
 describe('readingTime()', function() {
   it('should handle less than 1 minute text',
-  test(2, {}, {
-    text: '1 min read',
-    time: 600
-  }))
+    test(2, {}, {
+      text: '1 min read',
+      time: 600,
+      i18nText: 'a minute'
+    }))
 
   it('should handle less than 1 minute text',
-  test(50, {}, {
-    text: '1 min read',
-    time: 15000
-  }))
+    test(50, {}, {
+      text: '1 min read',
+      time: 15000,
+      i18nText: 'a minute'
+    }))
 
   it('should handle 1 minute text',
-  test(100, {}, {
-    text: '1 min read',
-    time: 30000
-  }))
+    test(100, {}, {
+      text: '1 min read',
+      time: 30000,
+      i18nText: 'a minute'
+    }))
 
   it('should handle 2 minutes text',
-  test(300, {}, {
-    text: '2 min read',
-    time: 90000
-  }))
+    test(300, {}, {
+      text: '2 min read',
+      time: 90000,
+      i18nText: '2 minutes'
+    }))
 
   it('should handle a very long text',
-  test(500, {}, {
-    text: '3 min read',
-    time: 150000
-  }))
+    test(500, {}, {
+      text: '3 min read',
+      time: 150000,
+      i18nText: '3 minutes'
+    }))
 
   it('should handle text containing multiple successive whitespaces',
-  test('word  word    word', {}, {
-    text: '1 min read',
-    time: 900
-  }))
+    test('word  word    word', {}, {
+      text: '1 min read',
+      time: 900,
+      i18nText: 'a minute'
+    }))
 
   it('should handle text starting with whitespaces',
-  test('   word word word', {}, {
-    text: '1 min read',
-    time: 900
-  }))
+    test('   word word word', {}, {
+      text: '1 min read',
+      time: 900,
+      i18nText: 'a minute'
+    }))
 
   it('should handle text ending with whitespaces',
-  test('word word word   ', {}, {
-    text: '1 min read',
-    time: 900
-  }))
+    test('word word word   ', {}, {
+      text: '1 min read',
+      time: 900,
+      i18nText: 'a minute'
+    }))
 
   it('should handle text containing links',
-  test('word http://ngryman.sh word', {}, {
-    text: '1 min read',
-    time: 900
-  }))
+    test('word http://ngryman.sh word', {}, {
+      text: '1 min read',
+      time: 900,
+      i18nText: 'a minute'
+    }))
 
   it('should handle text containing markdown links',
-  test('word [blog](http://ngryman.sh) word', {}, {
-    text: '1 min read',
-    time: 900
-  }))
+    test('word [blog](http://ngryman.sh) word', {}, {
+      text: '1 min read',
+      time: 900,
+      i18nText: 'a minute'
+    }))
 
   it('should handle text containing one word correctly',
-  test('0', {}, {
-    text: '1 min read',
-    time: 300
-  }))
+    test('0', {}, {
+      text: '1 min read',
+      time: 300,
+      i18nText: 'a minute'
+    }))
 
   it('should handle text containing a black hole',
-  test('', {}, {
-    text: '0 min read',
-    time: 0
-  }))
+    test('', {}, {
+      text: '0 min read',
+      time: 0,
+      i18nText: 'a few seconds'
+    }))
 
   it('should accept a custom word per minutes value',
-  test(200, { wordsPerMinute: 100 }, {
-    text: '2 min read',
-    time: 120000
-  }))
+    test(200, { wordsPerMinute: 100 }, {
+      text: '2 min read',
+      time: 120000,
+      i18nText: '2 minutes'
+    }))
+  it('should handle i18n locale from moment option with 2 minutes text',
+    test(100, { locale: 'es-ES' }, {
+      text: '1 min read',
+      time: 30000,
+      i18nText: 'un minuto'
+    }))
 })

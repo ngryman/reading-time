@@ -27,6 +27,7 @@
     "eslint": "^3.8.1",
     "eslint-config-ngryman": "^1.7.0",
     "mocha": "^4.0.0",
+    "moment": "^2.22.1",
     "onchange": "^3.0.2"
   }
 }
