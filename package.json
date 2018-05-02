@@ -1,5 +1,5 @@
 {
-  "name": "reading-time",
+  "name": "reading-time-i18n",
   "version": "1.2.0",
   "description": "Medium's like reading time estimation.",
   "main": "index.js",
@@ -19,6 +19,9 @@
     "words per minute"
   ],
   "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+  "contributors": [
+    "Jose Segura(segux) <josesegurag90@gmail.com> (https://github.com/segux)"
+  ],
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {

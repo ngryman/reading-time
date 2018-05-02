@@ -14,10 +14,15 @@ plain text can vary a little. But this is an estimation right?
 
 [Medium]: https://medium.com
 
+### Why moment?
+
+I needed to use the reading-time package, i love it but i need it with internacionalization. Probably the original package is lightweight intentionally developed, then i thought was better idea if i split into a new npm package for projects that you need a faster solution to reading time internacionalizated.
+
+
 ## Installation
 
 ```sh
-npm install reading-time --production
+npm install reading-time-i18n --production
 ```
 
 ## Usage
@@ -25,7 +30,7 @@ npm install reading-time --production
 ### Classic
 
 ```javascript
-var readingTime = require('reading-time');
+var readingTime = require('reading-time-i18n');
 
 var stats = readingTime(text);
 // ->
@@ -40,7 +45,7 @@ var stats = readingTime(text);
 ### With different i18n locale
 
 ```javascript
-var readingTime = require('reading-time');
+var readingTime = require('reading-time-i18n');
 
 var stats = readingTime(text, {locale: 'es-ES'});
 // ->
@@ -55,7 +60,7 @@ var stats = readingTime(text, {locale: 'es-ES'});
 ### Stream
 
 ```javascript
-var readingTime = require('reading-time/stream');
+var readingTime = require('reading-time-i18n/stream');
 
 fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
 	// ...
@@ -76,3 +81,11 @@ fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
 | [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |
 |---|
 | [Nicolas Gryman](http://ngryman.sh) |
+
+
+## Contributors
+
+
+| [![twitter/seguxx](https://en.gravatar.com/userimage/138512355/719552d3e7ba53e09366ed538749efe0.jpg?size=70)](https://github.com/segux "Segux github page") |
+|---|
+| [Jose Segura](https://github.com/segux) |
