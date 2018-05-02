@@ -1,6 +1,6 @@
 # reading-time
 
-[![NPM](http://img.shields.io/npm/v/reading-time.svg)](https://www.npmjs.org/package/reading-time) [![Build Status](http://img.shields.io/travis/ngryman/reading-time.svg)](https://travis-ci.org/ngryman/reading-time)
+[![NPM](http://img.shields.io/npm/v/reading-time-i18n.svg)](https://www.npmjs.org/package/reading-time-i18n) [![Build Status](https://travis-ci.org/segux/reading-time-i18n.svg?branch=master)](https://travis-ci.org/segux/reading-time-i18n)
 
 <br>
 
