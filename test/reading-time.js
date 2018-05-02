@@ -19,7 +19,7 @@ chai.should()
  * Test helpers.
  */
 
-var test = curry(function (words, options, expect, done) {
+var test = curry(function(words, options, expect, done) {
   var text
 
   if ('number' === typeof words) {
@@ -72,7 +72,7 @@ function generateText(words) {
 /**
  * Test suite.
  */
-describe('readingTime()', function () {
+describe('readingTime()', function() {
   it('should handle less than 1 minute text',
     test(2, {}, {
       text: '1 min read',
