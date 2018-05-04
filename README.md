@@ -31,7 +31,8 @@ var stats = readingTime(text);
 // ->
 // stats: {
 //   text: '1 min read',
-//   time: 60000.
+//   minutes: 1,
+//   time: 60000,
 //   words: 200
 // }
 ```

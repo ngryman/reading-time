@@ -73,36 +73,42 @@ describe('readingTime()', function() {
   it('should handle less than 1 minute text',
   test(2, {}, {
     text: '1 min read',
+    minutes: 1,
     time: 600
   }))
 
   it('should handle less than 1 minute text',
   test(50, {}, {
     text: '1 min read',
+    minutes: 1,
     time: 15000
   }))
 
   it('should handle 1 minute text',
   test(100, {}, {
     text: '1 min read',
+    minutes: 1,
     time: 30000
   }))
 
   it('should handle 2 minutes text',
   test(300, {}, {
     text: '2 min read',
+    minutes: 2,
     time: 90000
   }))
 
   it('should handle a very long text',
   test(500, {}, {
     text: '3 min read',
+    minutes: 3,
     time: 150000
   }))
 
   it('should handle text containing multiple successive whitespaces',
   test('word  word    word', {}, {
     text: '1 min read',
+    minutes: 1,
     time: 900
   }))
 
@@ -115,36 +121,42 @@ describe('readingTime()', function() {
   it('should handle text ending with whitespaces',
   test('word word word   ', {}, {
     text: '1 min read',
+    minutes: 1,
     time: 900
   }))
 
   it('should handle text containing links',
   test('word http://ngryman.sh word', {}, {
     text: '1 min read',
+    minutes: 1,
     time: 900
   }))
 
   it('should handle text containing markdown links',
   test('word [blog](http://ngryman.sh) word', {}, {
     text: '1 min read',
+    minutes: 1,
     time: 900
   }))
 
   it('should handle text containing one word correctly',
   test('0', {}, {
     text: '1 min read',
+    minutes: 1,
     time: 300
   }))
 
   it('should handle text containing a black hole',
   test('', {}, {
     text: '0 min read',
+    minutes: 0,
     time: 0
   }))
 
   it('should accept a custom word per minutes value',
   test(200, { wordsPerMinute: 100 }, {
     text: '2 min read',
+    minutes: 2,
     time: 120000
   }))
 })
