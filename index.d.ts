@@ -3,6 +3,7 @@ declare module "reading-time" {
     text: string;
     time: number;
     words: number;
+    minutes: number;
   };
 
   export = readingTime;
