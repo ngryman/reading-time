@@ -6,7 +6,7 @@ declare module "reading-time" {
     minutes: number;
   };
   
-  namespace readingTime {};
+  namespace readingTime {}
 
   export = readingTime;
 }
