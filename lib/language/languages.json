@@ -1,0 +1,5 @@
+[
+    {"type":"en_us", "read_msg": " min read"},
+    {"type":"pt_br", "read_msg": " min leitura"},
+    {"type":"es_mx", "read_msg": " min de lectura"}
+  ]

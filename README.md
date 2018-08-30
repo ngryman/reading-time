@@ -54,6 +54,7 @@ fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
  - `text`: the text to analyze
  - `options.wordsPerMinute`: the words per minute an average reader can read (default: 200)
  - `options.wordBound`: a function than return if a character is considered as a word bound (default: spaces, new lines and tabulations)
+ - `options.language`: you can set a language for return of reading text (default: en-us)
 
 ## Author
 
