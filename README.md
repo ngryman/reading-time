@@ -25,9 +25,9 @@ npm install reading-time --production
 ### Classic
 
 ```javascript
-var readingTime = require('reading-time');
+const readingTime = require('reading-time');
 
-var stats = readingTime(text);
+const stats = readingTime(text);
 // ->
 // stats: {
 //   text: '1 min read',
@@ -40,11 +40,11 @@ var stats = readingTime(text);
 ### Stream
 
 ```javascript
-var readingTime = require('reading-time/stream');
+const readingTime = require('reading-time/stream');
 
 fs.createReadStream('foo')
   .pipe(readingTime)
-  .on('data', function(stats) {
+  .on('data', stats => {
     // ...
   });
 ```
@@ -55,8 +55,8 @@ fs.createReadStream('foo')
 
 - `text`: the text to analyze
 - options (optional)
-- `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
-- `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabulations)
+  - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
+  - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabulations)
 
 ## Author
 
