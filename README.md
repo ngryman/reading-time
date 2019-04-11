@@ -12,7 +12,7 @@ It works perfectly with plain text, but also with `markdown` or `html`.
 Note that it's focused on performance and simplicity, so the number of words it will extract from other formats than
 plain text can vary a little. But this is an estimation right?
 
-[Medium]: https://medium.com
+[medium]: https://medium.com
 
 ## Installation
 
@@ -25,9 +25,9 @@ npm install reading-time --production
 ### Classic
 
 ```javascript
-var readingTime = require('reading-time');
+const readingTime = require('reading-time');
 
-var stats = readingTime(text);
+const stats = readingTime(text);
 // ->
 // stats: {
 //   text: '1 min read',
@@ -40,23 +40,26 @@ var stats = readingTime(text);
 ### Stream
 
 ```javascript
-var readingTime = require('reading-time/stream');
+const readingTime = require('reading-time/stream');
 
-fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
-	// ...
-});
+fs.createReadStream('foo')
+  .pipe(readingTime)
+  .on('data', stats => {
+    // ...
+  });
 ```
 
 ## API
 
-`readingTime(text, options)`
+`readingTime(text, options?)`
 
- - `text`: the text to analyze
- - `options.wordsPerMinute`: the words per minute an average reader can read (default: 200)
- - `options.wordBound`: a function than return if a character is considered as a word bound (default: spaces, new lines and tabulations)
+- `text`: the text to analyze
+- options (optional)
+  - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
+  - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabulations)
 
 ## Author
 
-| [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |
-|---|
-| [Nicolas Gryman](http://ngryman.sh) |
+| [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman 'Follow @ngryman on Twitter') |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Nicolas Gryman](http://ngryman.sh)                                                                                                                |
