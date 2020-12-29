@@ -12,7 +12,7 @@ It works perfectly with plain text, but also with `markdown` or `html`.
 Note that it's focused on performance and simplicity, so the number of words it will extract from other formats than
 plain text can vary a little. But this is an estimation right?
 
-[Medium]: https://medium.com
+[medium]: https://medium.com
 
 ### Why moment?
 
@@ -32,11 +32,13 @@ npm install reading-time-i18n --production
 ```javascript
 var readingTime = require('reading-time-i18n');
 
-var stats = readingTime(text);
+
+const stats = readingTime(text);
 // ->
 // stats: {
 //   text: '1 min read',
-//   time: 60000.
+//   minutes: 1,
+//   time: 60000,
 //   words: 200
 //   i18nText: '1 minute'
 // }
@@ -62,21 +64,25 @@ var stats = readingTime(text, {locale: 'es-ES'});
 ```javascript
 var readingTime = require('reading-time-i18n/stream');
 
-fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
-	// ...
-});
+fs.createReadStream('foo')
+  .pipe(readingTime)
+  .on('data', stats => {
+    // ...
+  });
 ```
 
 ## API
 
-`readingTime(text, options)`
+`readingTime(text, options?)`
 
  - `text`: the text to analyze
- - `options.wordsPerMinute`: the words per minute an average reader can read (default: 200)
- - `options.wordBound`: a function than return if a character is considered as a word bound (default: spaces, new lines and tabulations)
- - `options.locale`: i18n Locale for multilanguage text based on moment (default: en-GB)
+ - `options.wordsPerMinute`:(optional) the words per minute an average reader can read (default: 200)
+ - `options.wordBound`:  (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabulations)
+ - `options.locale`: (optional) i18n Locale for multilanguage text based on moment (default: en-GB)
 
-## Author
+
+## Other projects
+
 
 | [![twitter/ngryman](http://gravatar.com/avatar/2e1c2b5e153872e9fb021a6e4e376ead?size=70)](http://twitter.com/ngryman "Follow @ngryman on Twitter") |
 |---|
@@ -86,6 +92,12 @@ fs.createReadStream('foo').pipe(readingTime).on('data', function(stats) {
 ## Contributors
 
 
+- [Fauda](https://github.com/ngryman/fauda): configuration made simple.
+- [Badge Size](https://github.com/ngryman/badge-size): Displays the size of a given file in your repository.
+- [Commitizen Emoji](https://github.com/ngryman/cz-emoji): Commitizen adapter formatting commit messages using emojis.
+
+
+## i18n Adapt
 | [![twitter/seguxx](https://en.gravatar.com/userimage/138512355/719552d3e7ba53e09366ed538749efe0.jpg?size=70)](https://github.com/segux "Segux github page") |
 |---|
 | [Jose Segura](https://github.com/segux) |
