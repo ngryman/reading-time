@@ -26,7 +26,7 @@ var test = curry(function(words, options, expect, done) {
     chunks = generateChunks(words)
   }
   else {
-    chunks = [new Buffer(words)]
+    chunks = [Buffer.from(words)]
     if (~words.indexOf(' ')) {
       words = words.split(/.+ +.+/g).length + 1
     }
@@ -76,7 +76,7 @@ function generateChunks(words) {
   chunks.push(chunk)
 
   return chunks.map(function(chunk) {
-    return new Buffer(chunk)
+    return Buffer.from(chunk)
   })
 }
 
