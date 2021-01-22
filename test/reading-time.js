@@ -41,11 +41,7 @@ var test = curry(function(words, options, expect, done) {
   var res = readingTime(text, options)
   res.should.have.property('text', expect.text)
   res.should.have.property('words', words)
-  // floating point funkyness
-  //   http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-  res.should.have.property('time').that.is.within(
-    expect.time - 0.000001, expect.time + 0.000001)
-
+  res.should.have.property('time').that.is.equal(expect.time)
   done()
 })
 
