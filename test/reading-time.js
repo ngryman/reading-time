@@ -40,8 +40,15 @@ var test = curry(function(words, options, expect, done) {
 
   var res = readingTime(text, options)
   res.should.have.property('text', expect.text)
-  res.should.have.property('words', words)
-  res.should.have.property('time').that.is.equal(expect.time)
+  if (expect.words) {
+    res.should.have.property('words', expect.words)
+  }
+  else {
+    res.should.have.property('words', words)
+  }
+  if (expect.time) {
+    res.should.have.property('time').that.is.equal(expect.time)
+  }
   done()
 })
 
@@ -154,5 +161,34 @@ describe('readingTime()', function() {
     text: '2 min read',
     minutes: 2,
     time: 120000
+  }))
+
+  it('should handle a CJK paragraph',
+  test('你好！这是一段中文。', {}, {
+    text: '1 min read',
+    words: 10,
+    minutes: 1,
+    time: 3000
+  }))
+
+  it('should handle a CJK paragraph with Latin words',
+  test('你会说English吗？', {}, {
+    text: '1 min read',
+    words: 6,
+    minutes: 1
+  }))
+
+  it('should handle a CJK paragraph with Latin punctuation',
+  test('科学文章中, 经常使用英语标点.', {}, {
+    text: '1 min read',
+    words: 15,
+    minutes: 1
+  }))
+
+  it('should handle a CJK paragraph starting and terminating in Latin words',
+  test('JoshCena喜欢GitHub', {}, {
+    text: '1 min read',
+    words: 4,
+    minutes: 1
   }))
 })
