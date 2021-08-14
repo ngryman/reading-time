@@ -1,10 +1,10 @@
 declare module 'reading-time' {
-  interface IOptions {
+  export interface IOptions {
     wordBound?: (char: string) => boolean;
     wordsPerMinute?: number;
   }
 
-  interface IReadTimeResults {
+  export interface IReadTimeResults {
     text: string;
     time: number;
     words: number;
