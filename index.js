@@ -1,1 +1,1 @@
-module.exports = require('./lib/reading-time');
+module.exports = require('./lib/reading-time')

@@ -166,22 +166,21 @@ describe('readingTime()', function() {
   it('should handle a CJK paragraph',
   test('你好！这是一段中文。', {}, {
     text: '1 min read',
-    words: 10,
-    minutes: 1,
-    time: 3000
+    words: 8,
+    minutes: 1
   }))
 
   it('should handle a CJK paragraph with Latin words',
   test('你会说English吗？', {}, {
     text: '1 min read',
-    words: 6,
+    words: 5,
     minutes: 1
   }))
 
   it('should handle a CJK paragraph with Latin punctuation',
-  test('科学文章中, 经常使用英语标点.', {}, {
+  test('科学文章中, 经常使用英语标点...', {}, {
     text: '1 min read',
-    words: 15,
+    words: 13,
     minutes: 1
   }))
 
@@ -189,6 +188,27 @@ describe('readingTime()', function() {
   test('JoshCena喜欢GitHub', {}, {
     text: '1 min read',
     words: 4,
+    minutes: 1
+  }))
+
+  it('should handle a typical Korean paragraph',
+  test('이것은 한국어 단락입니다', {}, {
+    text: '1 min read',
+    words: 11,
+    minutes: 1
+  }))
+
+  it('should handle a typical Japanese paragraph',
+  test('天気がいいから、散歩しましょう', {}, {
+    text: '1 min read',
+    words: 14,
+    minutes: 1
+  }))
+
+  it('should treat Kanakana as one word',
+  test('メガナイトはありますか？', {}, {
+    text: '1 min read',
+    words: 7,
     minutes: 1
   }))
 })
