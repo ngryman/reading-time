@@ -206,7 +206,7 @@ describe('readingTime()', function() {
   }))
 
   it('should treat Katakana as one word',
-  test('メガナイトはありますか？', {}, {
+  test('メガナイトありませんか？', {}, {
     text: '1 min read',
     words: 7,
     minutes: 1
