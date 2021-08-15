@@ -164,9 +164,9 @@ describe('readingTime()', function() {
   }))
 
   it('should handle a CJK paragraph',
-  test('你好！这是一段中文。', {}, {
+  test('今天，我要说中文！（没错，现在这个库也完全支持中文了）', {}, {
     text: '1 min read',
-    words: 8,
+    words: 22,
     minutes: 1
   }))
 
@@ -178,9 +178,9 @@ describe('readingTime()', function() {
   }))
 
   it('should handle a CJK paragraph with Latin punctuation',
-  test('科学文章中, 经常使用英语标点...', {}, {
+  test('科学文章中, 经常使用英语标点... (虽然这段话并不科学)', {}, {
     text: '1 min read',
-    words: 13,
+    words: 22,
     minutes: 1
   }))
 
