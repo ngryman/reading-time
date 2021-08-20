@@ -1,19 +1,35 @@
 declare module 'reading-time' {
-  interface IOptions {
+  import {Transform, TransformCallback} from 'stream';
+
+  export interface Options {
     wordBound?: (char: string) => boolean;
     wordsPerMinute?: number;
   }
 
-  interface IReadTimeResults {
+  export interface ReadTimeResults {
     text: string;
     time: number;
     words: number;
     minutes: number;
   }
 
-  function readingTime(text: string, options?: IOptions): IReadTimeResults;
+  // Retrocompatibility
+  export type IOptions = Options;
+  export type IReadTimeResults = ReadTimeResults;
 
-  namespace readingTime {}
+  export interface readingTimeStream extends Transform {
+    stats: ReadTimeResults;
+    options: Options;
+    _transform: (chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback) => void;
+    _flush: (callback: TransformCallback) => void;
+    (options: Options): ReadingTimeStream;
+  }
 
-  export = readingTime;
+  export default function readingTime(text: string, options?: Options): ReadTimeResults;
+}
+
+declare module 'reading-time/lib/stream' {
+  import type {readingTimeStream} from 'reading-time';
+
+  export default readingTimeStream;
 }

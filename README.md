@@ -39,7 +39,9 @@ const stats = readingTime(text);
 ### Stream
 
 ```javascript
-const readingTime = require('reading-time/stream');
+const {readingTimeStream: readingTime} = require('reading-time');
+// OR:
+// const readingTime = require('reading-time/lib/stream');
 
 fs.createReadStream('foo')
   .pipe(readingTime)
