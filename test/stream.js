@@ -46,7 +46,7 @@ var test = curry(function(words, options, expect, done) {
     done()
   })
 
-  chunks.forEach(analyzer.write.bind(analyzer))
+  chunks.forEach(chunk => analyzer.write.bind(analyzer)(chunk))
   analyzer.end()
 })
 
