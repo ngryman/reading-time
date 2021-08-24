@@ -1,2 +1,2 @@
-const myModule = module.exports = require('./lib/reading-time')
-myModule.readingTimeStream = require('./lib/stream')
+module.exports.default = module.exports = require('./lib/reading-time')
+module.exports.readingTimeStream = require('./lib/stream')

@@ -14,6 +14,7 @@ declare module 'reading-time' {
   }
 
   // Retrocompatibility
+  // TODO: remove in 2.0.0
   export type IOptions = Options;
   export type IReadTimeResults = ReadTimeResults;
 
