@@ -27,7 +27,7 @@
     "curry": "^1.2.0",
     "eslint": "^3.8.1",
     "eslint-config-ngryman": "^1.7.0",
-    "mocha": "^4.0.0",
-    "onchange": "^3.0.2"
+    "mocha": "^9.0.3",
+    "onchange": "^7.1.0"
   }
 }

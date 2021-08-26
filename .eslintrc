@@ -1,3 +1,6 @@
 {
-  "extends": "ngryman"
+  "extends": "ngryman",
+  "rules": {
+    "valid-jsdoc": "off"
+  }
 }

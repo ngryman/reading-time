@@ -9,8 +9,7 @@
 `reading-time` helps you estimate how long an article will take to read.
 It works perfectly with plain text, but also with `markdown` or `html`.
 
-Note that it's focused on performance and simplicity, so the number of words it will extract from other formats than
-plain text can vary a little. But this is an estimation right?
+Note that it's focused on performance and simplicity, so the number of words it will extract from other formats than plain text can vary a little. But this is an estimation right?
 
 [medium]: https://medium.com
 
@@ -40,10 +39,10 @@ const stats = readingTime(text);
 ### Stream
 
 ```javascript
-const readingTime = require('reading-time/stream');
+const {readingTimeStream} = require('reading-time');
 
 fs.createReadStream('foo')
-  .pipe(readingTime)
+  .pipe(readingTimeStream)
   .on('data', stats => {
     // ...
   });
@@ -57,6 +56,10 @@ fs.createReadStream('foo')
 - options (optional)
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
   - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabulations)
+
+## Help wanted!
+
+This library has been optimized for alphabetical languages and CJK languages, but may not behave correctly for other languages that don't use spaces for work bounds. If you find the behavior of this library to deviate significantly from your expectation, issues or contributions are welcomed!
 
 ## Other projects
 
