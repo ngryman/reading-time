@@ -18,13 +18,15 @@ declare module 'reading-time' {
   export type IOptions = Options;
   export type IReadTimeResults = ReadTimeResults;
 
-  export interface readingTimeStream extends Transform {
+ interface ReadingTimeStream extends Transform {
     stats: ReadTimeResults;
     options: Options;
     _transform: (chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback) => void;
     _flush: (callback: TransformCallback) => void;
-    (options: Options): ReadingTimeStream;
+    (options?: Options): ReadingTimeStream;
   }
+  const readingTimeStream: ReadingTimeStream;
+  export {readingTimeStream};
 
   export default function readingTime(text: string, options?: Options): ReadTimeResults;
 }
