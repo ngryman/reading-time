@@ -16,5 +16,5 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
-lib/
+dist/
 .eslintcache

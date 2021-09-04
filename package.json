@@ -2,14 +2,14 @@
   "name": "reading-time",
   "version": "1.4.0",
   "description": "Medium's like reading time estimation.",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "types": "src/types.d.ts",
   "scripts": {
     "lint": "eslint --cache \"**/*.{js,ts}\"",
     "spec": "mocha",
     "test": "npm run lint && npm run spec",
     "build": "tsc",
-    "watch": "onchange {lib,test}/*.js -- npm test"
+    "watch": "tsc --watch"
   },
   "repository": "ngryman/reading-time",
   "keywords": [
