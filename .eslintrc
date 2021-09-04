@@ -8,13 +8,12 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "valid-jsdoc": "off",
     "prefer-const": "warn",
     "no-var": "error"
   },
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": ["test/*"],
       "globals": {
         "describe": true,
         "it": true
