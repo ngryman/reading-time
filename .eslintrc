@@ -1,6 +1,27 @@
 {
-  "extends": "ngryman",
+  "root": true,
+  "extends": [
+    "ngryman",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
-    "valid-jsdoc": "off"
-  }
+    "valid-jsdoc": "off",
+    "prefer-const": "warn",
+    "no-var": "error"
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "globals": {
+        "describe": true,
+        "it": true
+      },
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }

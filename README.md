@@ -24,7 +24,7 @@ npm install reading-time --production
 ### Classic
 
 ```javascript
-const readingTime = require('reading-time');
+const readingTime = require('reading-time').default;
 
 const stats = readingTime(text);
 // ->
@@ -39,10 +39,11 @@ const stats = readingTime(text);
 ### Stream
 
 ```javascript
-const {readingTimeStream} = require('reading-time');
+const {ReadingTimeStream} = require('reading-time');
 
+const analyzer = new ReadingTimeStream();
 fs.createReadStream('foo')
-  .pipe(readingTimeStream)
+  .pipe(analyzer)
   .on('data', stats => {
     // ...
   });
