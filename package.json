@@ -9,7 +9,8 @@
     "spec": "mocha",
     "test": "npm run lint && npm run spec",
     "build": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
   },
   "repository": "ngryman/reading-time",
   "keywords": [
