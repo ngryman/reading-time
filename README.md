@@ -24,7 +24,7 @@ npm install reading-time --production
 ### Classic
 
 ```javascript
-const readingTime = require('reading-time').default;
+const readingTime = require('reading-time');
 
 const stats = readingTime(text);
 // ->
