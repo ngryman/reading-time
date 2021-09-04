@@ -9,7 +9,7 @@
 /**
  * Module dependencies.
  */
-const { ReadingTimeStream } = require('../lib')
+const { ReadingTimeStream } = require('../dist')
 const curry = require('curry')
 const chai = require('chai')
 

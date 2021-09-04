@@ -9,7 +9,7 @@
 /**
  * Module dependencies.
  */
-const readingTime = require('../lib').default
+const readingTime = require('../dist')
 const curry = require('curry')
 const chai = require('chai')
 
