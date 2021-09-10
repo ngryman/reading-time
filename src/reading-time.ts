@@ -4,29 +4,17 @@
  * MIT Licensed
  */
 
-'use strict'
+import type { Options, ReadTimeResults } from 'reading-time'
 
-/**
- * @typedef {import('reading-time').Options['wordBound']} WordBoundFunction
- */
+type WordBoundFunction = Options['wordBound']
 
-/**
- * @param {number} number
- * @param {number[][]} arrayOfRanges
- */
-function codeIsInRanges(number, arrayOfRanges) {
+function codeIsInRanges(number: number, arrayOfRanges: number[][]) {
   return arrayOfRanges.some(([lowerBound, upperBound]) =>
     (lowerBound <= number) && (number <= upperBound)
   )
 }
 
-/**
- * @type {WordBoundFunction}
- */
-function isCJK(c) {
-  if ('string' !== typeof c) {
-    return false
-  }
+const isCJK: WordBoundFunction = (c) => {
   const charCode = c.charCodeAt(0)
   // Help wanted!
   // This should be good for most cases, but if you find it unsatisfactory
@@ -49,20 +37,11 @@ function isCJK(c) {
   )
 }
 
-/**
- * @type {WordBoundFunction}
- */
-function isAnsiWordBound(c) {
+const isAnsiWordBound: WordBoundFunction = (c) => {
   return ' \n\r\t'.includes(c)
 }
 
-/**
- * @type {WordBoundFunction}
- */
-function isPunctuation(c) {
-  if ('string' !== typeof c) {
-    return false
-  }
+const isPunctuation: WordBoundFunction = (c) => {
   const charCode = c.charCodeAt(0)
   return codeIsInRanges(
     charCode,
@@ -79,17 +58,12 @@ function isPunctuation(c) {
   )
 }
 
-/**
- * @type {import('reading-time').default}
- */
-function readingTime(text, options = {}) {
+function readingTime(text: string, options: Options = {}): ReadTimeResults {
   let words = 0, start = 0, end = text.length - 1
-
-  // use provided value if available
-  const wordsPerMinute = options.wordsPerMinute || 200
-
-  // use provided function if available
-  const isWordBound = options.wordBound || isAnsiWordBound
+  const {
+    wordsPerMinute = 200,
+    wordBound: isWordBound = isAnsiWordBound
+  } = options
 
   // fetch bounds
   while (isWordBound(text[start])) start++
@@ -126,17 +100,14 @@ function readingTime(text, options = {}) {
   // Math.round used to resolve floating point funkyness
   //   http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
   const time = Math.round(minutes * 60 * 1000)
-  const displayed = Math.ceil(minutes.toFixed(2))
+  const displayed = Math.ceil(parseFloat(minutes.toFixed(2)))
 
   return {
     text: displayed + ' min read',
-    minutes: minutes,
-    time: time,
-    words: words
+    minutes,
+    time,
+    words
   }
 }
 
-/**
- * Export
- */
-module.exports = readingTime
+export default readingTime
