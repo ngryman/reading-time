@@ -1,3 +1,4 @@
 .*
-Gruntfile.js
 test/
+tsconfig.json
+tsconfig-build.json

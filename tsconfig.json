@@ -1,10 +1,8 @@
 {
-  "include": ["src"],
+  "include": ["src", "test"],
   "compilerOptions": {
     "lib": ["esnext"],
-    "outDir": "dist",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "declaration": true
+    "noEmit": true,
+    "esModuleInterop": true
   },
 }
