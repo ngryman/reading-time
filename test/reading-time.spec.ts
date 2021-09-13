@@ -6,11 +6,11 @@
 
 import readingTime from '../src'
 import chai from 'chai'
-import { Options, ReadTimeResults } from 'reading-time'
+import { Options, ReadingTimeResults } from 'reading-time'
 
 chai.should()
 
-const test = (words: number | string, expect: Partial<ReadTimeResults>, options?: Options) =>
+const test = (words: number | string, expect: Partial<ReadingTimeResults>, options?: Options) =>
   (done: () => void) => {
     const text = 'number' === typeof words ? generateText(words) : words
 
@@ -32,6 +32,9 @@ const test = (words: number | string, expect: Partial<ReadTimeResults>, options?
     }
     if (expect.time) {
       res.should.have.property('time', expect.time)
+    }
+    if (expect.words) {
+      res.should.have.property('words', expect.words)
     }
     done()
   }
@@ -135,36 +138,36 @@ describe('readingTime()', () => {
 describe('readingTime CJK', () => {
   it('should handle a CJK paragraph',
     test('今天，我要说中文！（没错，现在这个库也完全支持中文了）', {
-      time: 6600
+      words: 22
     }))
 
   it('should handle a CJK paragraph with Latin words',
     test('你会说English吗？', {
-      time: 1500
+      words: 5
     }))
 
   it('should handle a CJK paragraph with Latin punctuation',
     test('科学文章中, 经常使用英语标点... (虽然这段话并不科学)', {
-      time: 6600
+      words: 22
     }))
 
   it('should handle a CJK paragraph starting and terminating in Latin words',
     test('JoshCena喜欢GitHub', {
-      time: 1200
+      words: 4
     }))
 
   it('should handle a typical Korean paragraph',
     test('이것은 한국어 단락입니다', {
-      time: 3300
+      words: 11
     }))
 
   it('should handle a typical Japanese paragraph',
     test('天気がいいから、散歩しましょう', {
-      time: 4200
+      words: 14
     }))
 
   it('should treat Katakana as one word',
     test('メガナイトありませんか？', {
-      time: 2100
+      words: 7
     }))
 })

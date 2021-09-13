@@ -6,22 +6,26 @@ declare module 'reading-time' {
     wordsPerMinute?: number;
   }
 
-  export interface ReadTimeResults {
+  export interface ReadingTimeStats {
     time: number;
     minutes: number;
   }
 
-  export type WordCountResults = number;
+  export type WordCountStats = number;
 
   export class ReadingTimeStream extends Transform {
-    stats: WordCountResults;
+    stats: WordCountStats;
     options: Options;
     constructor(options?: Options);
     _transform: (chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback) => void;
     _flush: (callback: TransformCallback) => void;
   }
 
-  export function wordCount(text: string, options?: Options): WordCountResults
-  export function readingTimeWithCount(words: WordCountResults, options?: Options): ReadTimeResults
-  export default function readingTime(text: string, options?: Options): ReadTimeResults
+  export interface ReadingTimeResults extends ReadingTimeStats {
+    words: WordCountStats;
+  }
+
+  export function wordCount(text: string, options?: Options): WordCountStats
+  export function readingTimeWithCount(words: WordCountStats, options?: Options): ReadingTimeStats
+  export default function readingTime(text: string, options?: Options): ReadingTimeResults
 }
