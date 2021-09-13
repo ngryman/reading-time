@@ -30,7 +30,8 @@ const stats = readingTime(text);
 // ->
 // stats: {
 //   minutes: 1,
-//   time: 60000
+//   time: 60000,
+//   words: 200
 // }
 console.log(`The reading time is: ${stats.minutes} min`);
 ```
@@ -52,7 +53,7 @@ fs.createReadStream('foo')
 
 ### `readingTime(text, options?)`
 
-Returns an object with `minutes` and `time` (in milliseconds).
+Returns an object with `minutes`, `time` (in milliseconds), and `words`.
 
 - `text`: the text to analyze
 - options (optional)
