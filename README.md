@@ -29,34 +29,53 @@ const readingTime = require('reading-time');
 const stats = readingTime(text);
 // ->
 // stats: {
-//   text: '1 min read',
 //   minutes: 1,
-//   time: 60000,
-//   words: 200
+//   time: 60000
 // }
+console.log(`The reading time is: ${stats.minutes} min`);
 ```
 
 ### Stream
 
 ```javascript
-const {ReadingTimeStream} = require('reading-time');
+const {ReadingTimeStream, readingTimeWithCount} = require('reading-time');
 
 const analyzer = new ReadingTimeStream();
 fs.createReadStream('foo')
   .pipe(analyzer)
-  .on('data', stats => {
-    // ...
+  .on('data', (count) => {
+    console.log(`The reading time is: ${readingTimeWithCount(count).minutes} min`);
   });
 ```
 
 ## API
 
-`readingTime(text, options?)`
+### `readingTime(text, options?)`
+
+Returns an object with `minutes` and `time` (in milliseconds).
 
 - `text`: the text to analyze
 - options (optional)
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
-  - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabulations)
+  - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabs)
+
+### `wordCount(text, options?)`
+
+Returns an object representing the word count stats, currently aliased to `number`.
+
+- `text`: the text to analyze
+- options (optional)
+  - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabs)
+
+### `readingTimeWithCount(words, options?)`
+
+Returns an object with `minutes` and `time` (in milliseconds).
+
+- `words`: the word count stats
+- options (optional)
+  - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
+
+Note that `readingTime(text, options) === readingTimeWithCount(wordCount(text, options), options)`.
 
 ## Help wanted!
 

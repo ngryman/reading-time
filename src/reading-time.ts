@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-import type { Options, ReadTimeResults } from 'reading-time'
+import type { Options, ReadTimeResults, WordCountResults } from 'reading-time'
 
 type WordBoundFunction = Options['wordBound']
 
@@ -58,10 +58,9 @@ const isPunctuation: WordBoundFunction = (c) => {
   )
 }
 
-function readingTime(text: string, options: Options = {}): ReadTimeResults {
+export function wordCount(text: string, options: Options = {}): WordCountResults {
   let words = 0, start = 0, end = text.length - 1
   const {
-    wordsPerMinute = 200,
     wordBound: isWordBound = isAnsiWordBound
   } = options
 
@@ -94,7 +93,16 @@ function readingTime(text: string, options: Options = {}): ReadTimeResults {
       }
     }
   }
+  return words
+}
 
+export function readingTimeWithCount(
+  words: WordCountResults,
+  options: Options = {}
+): ReadTimeResults {
+  const {
+    wordsPerMinute = 200
+  } = options
   // reading time stats
   const minutes = words / wordsPerMinute
   // Math.round used to resolve floating point funkyness
@@ -103,11 +111,11 @@ function readingTime(text: string, options: Options = {}): ReadTimeResults {
   const displayed = Math.ceil(parseFloat(minutes.toFixed(2)))
 
   return {
-    text: displayed + ' min read',
-    minutes,
-    time,
-    words
+    minutes: displayed,
+    time
   }
 }
 
-export default readingTime
+export default function readingTime(text: string, options: Options = {}): ReadTimeResults {
+  return readingTimeWithCount(wordCount(text, options), options)
+}
