@@ -31,7 +31,7 @@ const stats = readingTime(text);
 // stats: {
 //   minutes: 1,
 //   time: 60000,
-//   words: 200
+//   words: {total: 200}
 // }
 console.log(`The reading time is: ${stats.minutes} min`);
 ```
@@ -55,6 +55,14 @@ fs.createReadStream('foo')
 
 Returns an object with `minutes`, `time` (in milliseconds), and `words`.
 
+```ts
+type ReadingTimeResults = {
+  minutes: number;
+  time: number;
+  words: WordCountStats;
+};
+```
+
 - `text`: the text to analyze
 - options (optional)
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
@@ -62,7 +70,13 @@ Returns an object with `minutes`, `time` (in milliseconds), and `words`.
 
 ### `wordCount(text, options?)`
 
-Returns an object representing the word count stats, currently aliased to `number`.
+Returns an object representing the word count stats:
+
+```ts
+type WordCountStats = {
+  total: number;
+};
+```
 
 - `text`: the text to analyze
 - options (optional)
@@ -70,7 +84,7 @@ Returns an object representing the word count stats, currently aliased to `numbe
 
 ### `readingTimeWithCount(words, options?)`
 
-Returns an object with `minutes` and `time` (in milliseconds).
+Returns an object with `minutes` (rounded minute stats) and `time` (exact time in milliseconds).
 
 - `words`: the word count stats
 - options (optional)
