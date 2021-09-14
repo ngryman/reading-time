@@ -34,7 +34,7 @@ const test = (words: number | string, expect: Partial<ReadingTimeResults>, optio
       res.should.have.property('time', expect.time)
     }
     if (expect.words) {
-      res.should.have.property('words', expect.words)
+      res.should.have.property('words').to.deep.equal(expect.words)
     }
     done()
   }
@@ -138,36 +138,36 @@ describe('readingTime()', () => {
 describe('readingTime CJK', () => {
   it('should handle a CJK paragraph',
     test('今天，我要说中文！（没错，现在这个库也完全支持中文了）', {
-      words: 22
+      words: { total: 22 }
     }))
 
   it('should handle a CJK paragraph with Latin words',
     test('你会说English吗？', {
-      words: 5
+      words: { total: 5 }
     }))
 
   it('should handle a CJK paragraph with Latin punctuation',
     test('科学文章中, 经常使用英语标点... (虽然这段话并不科学)', {
-      words: 22
+      words: { total: 22 }
     }))
 
   it('should handle a CJK paragraph starting and terminating in Latin words',
     test('JoshCena喜欢GitHub', {
-      words: 4
+      words: { total: 4 }
     }))
 
   it('should handle a typical Korean paragraph',
     test('이것은 한국어 단락입니다', {
-      words: 11
+      words: { total: 11 }
     }))
 
   it('should handle a typical Japanese paragraph',
     test('天気がいいから、散歩しましょう', {
-      words: 14
+      words: { total: 14 }
     }))
 
   it('should treat Katakana as one word',
     test('メガナイトありませんか？', {
-      words: 7
+      words: { total: 7 }
     }))
 })

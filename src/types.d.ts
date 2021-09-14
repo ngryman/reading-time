@@ -11,7 +11,9 @@ declare module 'reading-time' {
     minutes: number;
   }
 
-  export type WordCountStats = number;
+  export interface WordCountStats {
+    total: number;
+  }
 
   export class ReadingTimeStream extends Transform {
     stats: WordCountStats;

@@ -60,9 +60,7 @@ const isPunctuation: WordBoundFunction = (c) => {
 
 export function wordCount(text: string, options: Options = {}): WordCountStats {
   let words = 0, start = 0, end = text.length - 1
-  const {
-    wordBound: isWordBound = isAnsiWordBound
-  } = options
+  const { wordBound: isWordBound = isAnsiWordBound } = options
 
   // fetch bounds
   while (isWordBound(text[start])) start++
@@ -93,19 +91,17 @@ export function wordCount(text: string, options: Options = {}): WordCountStats {
       }
     }
   }
-  return words
+  return { total: words }
 }
 
 export function readingTimeWithCount(
   words: WordCountStats,
   options: Options = {}
 ): ReadingTimeStats {
-  const {
-    wordsPerMinute = 200
-  } = options
+  const { wordsPerMinute = 200 } = options
   // reading time stats
-  const minutes = words / wordsPerMinute
-  // Math.round used to resolve floating point funkyness
+  const minutes = words.total / wordsPerMinute
+  // Math.round used to resolve floating point funkiness
   //   http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
   const time = Math.round(minutes * 60 * 1000)
   const displayed = Math.ceil(parseFloat(minutes.toFixed(2)))

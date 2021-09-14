@@ -28,7 +28,7 @@ const test = (words: number | string, expect: WordCountStats, options?: Options)
 
     const analyzer = new ReadingTimeStream(options)
     analyzer.on('data', (res) => {
-      res.should.equal(expect)
+      res.should.deep.equal(expect)
       done()
     })
 
@@ -60,29 +60,32 @@ function generateChunks(words: number) {
 }
 
 describe('readingTime stream', () => {
-  it('should handle less than 1 minute text', test(2, 2))
-  it('should handle less than 1 minute text', test(50, 50))
-  it('should handle 1 minute text', test(100, 100))
-  it('should handle 2 minutes text', test(300, 300))
-  it('should handle a very long text', test(500, 500))
-  it('should handle text containing multiple successive whitespaces', test('word  word    word', 3))
-  it('should handle text starting with whitespaces', test('   word word word', 3))
-  it('should handle text ending with whitespaces', test('word word word   ', 3))
-  it('should handle text containing links', test('word http://ngryman.sh word', 3))
-  it('should handle text containing markdown links', test('word [blog](http://ngryman.sh) word', 3))
-  it('should handle text containing one word correctly', test('0', 1))
-  it('should handle text containing a black hole', test('', 0))
-  it('should accept a custom word per minutes value', test(200, 200, { wordsPerMinute: 100 }))
+  it('should handle less than 1 minute text', test(2, { total: 2 }))
+  it('should handle less than 1 minute text', test(50, { total: 50 }))
+  it('should handle 1 minute text', test(100, { total: 100 }))
+  it('should handle 2 minutes text', test(300, { total: 300 }))
+  it('should handle a very long text', test(500, { total: 500 }))
+  it('should handle text containing multiple successive whitespaces',
+    test('word  word    word', { total: 3 }))
+  it('should handle text starting with whitespaces', test('   word word word', { total: 3 }))
+  it('should handle text ending with whitespaces', test('word word word   ', { total: 3 }))
+  it('should handle text containing links', test('word http://ngryman.sh word', { total: 3 }))
+  it('should handle text containing markdown links',
+    test('word [blog](http://ngryman.sh) word', { total: 3 }))
+  it('should handle text containing one word correctly', test('0', { total: 1 }))
+  it('should handle text containing a black hole', test('', { total: 0 }))
+  it('should accept a custom word per minutes value',
+    test(200, { total: 200 }, { wordsPerMinute: 100 }))
 })
 
 describe('readingTime stream CJK', () => {
-  it('should handle a CJK paragraph', test('今天，我要说中文！（没错，现在这个库也完全支持中文了）', 22))
-  it('should handle a CJK paragraph with Latin words', test('你会说English吗？', 5))
+  it('should handle a CJK paragraph', test('今天，我要说中文！（没错，现在这个库也完全支持中文了）', { total: 22 }))
+  it('should handle a CJK paragraph with Latin words', test('你会说English吗？', { total: 5 }))
   it('should handle a CJK paragraph with Latin punctuation',
-    test('科学文章中, 经常使用英语标点... (虽然这段话并不科学)', 22))
+    test('科学文章中, 经常使用英语标点... (虽然这段话并不科学)', { total: 22 }))
   it('should handle a CJK paragraph starting and terminating in Latin words',
-    test('JoshCena喜欢GitHub', 4))
-  it('should handle a typical Korean paragraph', test('이것은 한국어 단락입니다', 11))
-  it('should handle a typical Japanese paragraph', test('天気がいいから、散歩しましょう', 14))
-  it('should treat Katakana as one word', test('メガナイトありませんか？', 7))
+    test('JoshCena喜欢GitHub', { total: 4 }))
+  it('should handle a typical Korean paragraph', test('이것은 한국어 단락입니다', { total: 11 }))
+  it('should handle a typical Japanese paragraph', test('天気がいいから、散歩しましょう', { total: 14 }))
+  it('should treat Katakana as one word', test('メガナイトありませんか？', { total: 7 }))
 })

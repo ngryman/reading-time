@@ -2,7 +2,7 @@ import readingTime, { wordCount, readingTimeWithCount } from './reading-time'
 import ReadingTimeStream from './stream'
 
 // This part is to make TS happy
-export { ReadingTimeStream }
+export { ReadingTimeStream, wordCount, readingTimeWithCount }
 export default readingTime
 
 // Wacky way to support const readingTime = require('reading-time') :(
