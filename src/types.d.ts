@@ -1,17 +1,17 @@
 declare module 'reading-time' {
   import { Transform, TransformCallback } from 'stream'
 
-  export interface Options {
+  export type Options = {
     wordBound?: (char: string) => boolean;
     wordsPerMinute?: number;
   }
 
-  export interface ReadingTimeStats {
+  export type ReadingTimeStats = {
     time: number;
     minutes: number;
   }
 
-  export interface WordCountStats {
+  export type WordCountStats = {
     total: number;
   }
 
@@ -23,11 +23,11 @@ declare module 'reading-time' {
     _flush: (callback: TransformCallback) => void;
   }
 
-  export interface ReadingTimeResults extends ReadingTimeStats {
+  export type ReadingTimeResult = ReadingTimeStats & {
     words: WordCountStats;
   }
 
-  export function wordCount(text: string, options?: Options): WordCountStats
+  export function countWords(text: string, options?: Options): WordCountStats
   export function readingTimeWithCount(words: WordCountStats, options?: Options): ReadingTimeStats
-  export default function readingTime(text: string, options?: Options): ReadingTimeResults
+  export default function readingTime(text: string, options?: Options): ReadingTimeResult
 }

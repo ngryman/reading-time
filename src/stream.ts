@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-import { wordCount } from './reading-time'
+import { countWords } from './reading-time'
 import { Transform, TransformCallback } from 'stream'
 import type { Options, WordCountStats } from 'reading-time'
 
@@ -20,7 +20,7 @@ class ReadingTimeStream extends Transform {
   }
 
   _transform(chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback): void {
-    const stats = wordCount(chunk.toString(encoding), this.options)
+    const stats = countWords(chunk.toString(encoding), this.options)
     this.stats.total += stats.total
     callback()
   }

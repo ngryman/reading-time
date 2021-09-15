@@ -21,6 +21,7 @@
     "words per minute"
   ],
   "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+  "contributors": ["Joshua Chen <sidachen2003@gmail.com> (https://joshcena.com)"],
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.21",

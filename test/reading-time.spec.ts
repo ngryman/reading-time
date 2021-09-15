@@ -6,11 +6,11 @@
 
 import readingTime from '../src'
 import chai from 'chai'
-import { Options, ReadingTimeResults } from 'reading-time'
+import { Options, ReadingTimeResult } from 'reading-time'
 
 chai.should()
 
-const test = (words: number | string, expect: Partial<ReadingTimeResults>, options?: Options) =>
+const test = (words: number | string, expect: Partial<ReadingTimeResult>, options?: Options) =>
   (done: () => void) => {
     const text = 'number' === typeof words ? generateText(words) : words
 
