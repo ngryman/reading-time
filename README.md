@@ -68,7 +68,7 @@ type ReadingTimeResults = {
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
   - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabs)
 
-### `wordCount(text, options?)`
+### `countWords(text, options?)`
 
 Returns an object representing the word count stats:
 
@@ -90,7 +90,7 @@ Returns an object with `minutes` (rounded minute stats) and `time` (exact time i
 - options (optional)
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
 
-Note that `readingTime(text, options) === readingTimeWithCount(wordCount(text, options), options)`.
+Note that `readingTime(text, options) === readingTimeWithCount(countWords(text, options), options)`.
 
 ## Help wanted!
 
