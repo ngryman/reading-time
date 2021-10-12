@@ -3,7 +3,7 @@
   "version": "1.5.0",
   "description": "Medium's like reading time estimation.",
   "main": "dist/index.js",
-  "types": "src/types.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint --cache \"**/*.{js,ts}\"",
     "spec": "ts-mocha test/*.ts",
@@ -21,7 +21,9 @@
     "words per minute"
   ],
   "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
-  "contributors": ["Joshua Chen <sidachen2003@gmail.com> (https://joshcena.com)"],
+  "contributors": [
+    "Joshua Chen <sidachen2003@gmail.com> (https://joshcena.com)"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.21",
