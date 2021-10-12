@@ -4,9 +4,8 @@
  * MIT Licensed
  */
 
-import { ReadingTimeStream } from '../src'
+import { ReadingTimeStream, Options, WordCountStats } from '../src'
 import chai from 'chai'
-import { Options, WordCountStats } from 'reading-time'
 
 chai.should()
 

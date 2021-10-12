@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-import type { Options, ReadingTimeStats, WordCountStats, ReadingTimeResult } from 'reading-time'
+import type { Options, ReadingTimeStats, WordCountStats, ReadingTimeResult } from './types'
 
 type WordBoundFunction = Options['wordBound']
 

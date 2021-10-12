@@ -4,9 +4,8 @@
  * MIT Licensed
  */
 
-import readingTime from '../src'
+import readingTime, { Options, ReadingTimeResult } from '../src'
 import chai from 'chai'
-import { Options, ReadingTimeResult } from 'reading-time'
 
 chai.should()
 
