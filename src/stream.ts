@@ -6,7 +6,7 @@
 
 import { countWords } from './reading-time'
 import { Transform, TransformCallback } from 'stream'
-import type { Options, WordCountStats } from 'reading-time'
+import type { Options, WordCountStats } from './types'
 
 class ReadingTimeStream extends Transform {
   options: Options;

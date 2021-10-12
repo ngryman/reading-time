@@ -1,5 +1,13 @@
+/*!
+ * reading-time
+ * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
+ * MIT Licensed
+ */
+
 import readingTime, { countWords, readingTimeWithCount } from './reading-time'
 import ReadingTimeStream from './stream'
+
+export * from './types'
 
 // This part is to make TS happy
 export { ReadingTimeStream, countWords, readingTimeWithCount }
