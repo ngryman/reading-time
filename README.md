@@ -19,6 +19,8 @@ Note that it's focused on performance and simplicity, so the number of words it 
 npm install reading-time --production
 ```
 
+Note: this library is primarily for Node apps. If you need to use it in browsers with a bundler like Webpack, the `ReadingTimeStream` module would not be available because only a subset of the exports is included.
+
 ## Usage
 
 ### Classic
