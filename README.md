@@ -19,14 +19,15 @@ Note that it's focused on performance and simplicity, so the number of words it 
 npm install reading-time --production
 ```
 
-Note: this library is primarily for Node apps. If you need to use it in browsers with a bundler like Webpack, the `ReadingTimeStream` module would not be available because only a subset of the exports is included. If you need to use the stream version in browser (e.g. with a browser polyfill of `Buffer`), use `import ReadingTimeStream from 'reading-time/dist/stream'` instead. (And please let us know if that happens—we can reconsider our prioritization.)
-
 ## Usage
 
 ### Classic
 
 ```javascript
+// In Node.js
 const readingTime = require('reading-time');
+// In the browser
+const readingTime = require('reading-time/lib/reading-time');
 
 const stats = readingTime(text);
 // ->
@@ -37,6 +38,15 @@ const stats = readingTime(text);
 // }
 console.log(`The reading time is: ${stats.minutes} min`);
 ```
+
+<details>
+<summary><b>🙋‍♂️ Why different imports for Node.js and the browser?</b></summary><br>
+  
+This library is primarly for Node.js. The entrypoint also exports a `ReadingTimeStream` class which is, without polyfills, not supported in browsers. A simple workaround is to import the underlying `lib/reading-time` module.
+
+**Note that in the upcoming `2.0.0` version, this won't be necessary anymore.**
+
+</details>
 
 ### Stream
 
@@ -50,6 +60,13 @@ fs.createReadStream('foo')
     console.log(`The reading time is: ${readingTimeWithCount(count).minutes} min`);
   });
 ```
+
+<details>
+<summary><b>🙋‍♂️ Can I use this in the browser?</b></summary><br>
+  
+Yes. You need to provide the appropriate polyfills. Please refer to your bundler's documentation.
+
+</details>
 
 ## API
 
