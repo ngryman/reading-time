@@ -1,6 +1,6 @@
 {
   "name": "reading-time",
-  "version": "2.0.0-0",
+  "version": "2.0.0-1",
   "description": "Medium's like reading time estimation.",
   "main": "dist/index.js",
   "browser": "dist/reading-time.js",
