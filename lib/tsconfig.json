@@ -8,5 +8,5 @@
     "rootDir": "src",
     "declaration": true,
     "esModuleInterop": true
-  },
+  }
 }
