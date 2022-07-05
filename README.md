@@ -42,7 +42,7 @@ console.log(`The reading time is: ${stats.minutes} min`);
 <details>
 <summary><b>🙋‍♂️ Why different imports for Node.js and the browser?</b></summary><br>
   
-This library is primarly for Node.js. The entrypoint also exports a `ReadingTimeStream` class which is, without polyfills, not supported in browsers. A simple workaround is to import the underlying `lib/reading-time` module.
+This library is primarily for Node.js. The entrypoint also exports a `ReadingTimeStream` class which is, without polyfills, not supported in browsers. A simple workaround is to import the underlying `lib/reading-time` module.
 
 **Note that in the upcoming `2.0.0` version, this won't be necessary anymore.**
 
@@ -113,7 +113,7 @@ Note that `readingTime(text, options) === readingTimeWithCount(countWords(text, 
 
 ## Help wanted!
 
-This library has been optimized for alphabetical languages and CJK languages, but may not behave correctly for other languages that don't use spaces for work bounds. If you find the behavior of this library to deviate significantly from your expectation, issues or contributions are welcomed!
+This library has been optimized for alphabetical languages and CJK languages, but may not behave correctly for other languages that don't use spaces for word bounds. If you find the behavior of this library to deviate significantly from your expectation, issues or contributions are welcomed!
 
 ## Other projects
 
