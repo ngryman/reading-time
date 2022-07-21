@@ -9,8 +9,8 @@ import type { Options, ReadingTimeStats, WordCountStats, ReadingTimeResult } fro
 type WordBoundFunction = Options['wordBound']
 
 function codeIsInRanges(number: number, arrayOfRanges: number[][]) {
-  return arrayOfRanges.some(([lowerBound, upperBound]) =>
-    (lowerBound <= number) && (number <= upperBound)
+  return arrayOfRanges.some(
+    ([lowerBound, upperBound]) => lowerBound <= number && number <= upperBound
   )
 }
 
@@ -20,21 +20,18 @@ const isCJK: WordBoundFunction = (c) => {
   // This should be good for most cases, but if you find it unsatisfactory
   // (e.g. some other language where each character should be standalone words),
   // contributions welcome!
-  return codeIsInRanges(
-    charCode,
-    [
-      // Hiragana (Katakana not included on purpose,
-      // context: https://github.com/ngryman/reading-time/pull/35#issuecomment-853364526)
-      // If you think Katakana should be included and have solid reasons, improvement is welcomed
-      [0x3040, 0x309f],
-      // CJK Unified ideographs
-      [0x4e00, 0x9fff],
-      // Hangul
-      [0xac00, 0xd7a3],
-      // CJK extensions
-      [0x20000, 0x2ebe0]
-    ]
-  )
+  return codeIsInRanges(charCode, [
+    // Hiragana (Katakana not included on purpose,
+    // context: https://github.com/ngryman/reading-time/pull/35#issuecomment-853364526)
+    // If you think Katakana should be included and have solid reasons, improvement is welcomed
+    [0x3040, 0x309f],
+    // CJK Unified ideographs
+    [0x4e00, 0x9fff],
+    // Hangul
+    [0xac00, 0xd7a3],
+    // CJK extensions
+    [0x20000, 0x2ebe0]
+  ])
 }
 
 const isAnsiWordBound: WordBoundFunction = (c) => {
@@ -43,23 +40,22 @@ const isAnsiWordBound: WordBoundFunction = (c) => {
 
 const isPunctuation: WordBoundFunction = (c) => {
   const charCode = c.charCodeAt(0)
-  return codeIsInRanges(
-    charCode,
-    [
-      [0x21, 0x2f],
-      [0x3a, 0x40],
-      [0x5b, 0x60],
-      [0x7b, 0x7e],
-      // CJK Symbols and Punctuation
-      [0x3000, 0x303f],
-      // Full-width ASCII punctuation variants
-      [0xff00, 0xffef]
-    ]
-  )
+  return codeIsInRanges(charCode, [
+    [0x21, 0x2f],
+    [0x3a, 0x40],
+    [0x5b, 0x60],
+    [0x7b, 0x7e],
+    // CJK Symbols and Punctuation
+    [0x3000, 0x303f],
+    // Full-width ASCII punctuation variants
+    [0xff00, 0xffef]
+  ])
 }
 
 export function countWords(text: string, options: Options = {}): WordCountStats {
-  let words = 0, start = 0, end = text.length - 1
+  let words = 0
+    , start = 0
+    , end = text.length - 1
   const { wordBound: isWordBound = isAnsiWordBound } = options
 
   // fetch bounds
@@ -76,8 +72,7 @@ export function countWords(text: string, options: Options = {}): WordCountStats 
     if (
       isCJK(normalizedText[i]) ||
       (!isWordBound(normalizedText[i]) &&
-        (isWordBound(normalizedText[i + 1]) || isCJK(normalizedText[i + 1]))
-      )
+        (isWordBound(normalizedText[i + 1]) || isCJK(normalizedText[i + 1])))
     ) {
       words++
     }

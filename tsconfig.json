@@ -4,5 +4,5 @@
     "lib": ["esnext"],
     "noEmit": true,
     "esModuleInterop": true
-  },
+  }
 }

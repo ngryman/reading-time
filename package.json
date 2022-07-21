@@ -1,31 +1,10 @@
 {
-  "name": "reading-time",
-  "version": "2.0.0-1",
-  "description": "Medium's like reading time estimation.",
-  "main": "dist/index.js",
-  "browser": "dist/reading-time.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "lint": "eslint --cache \"**/*.{js,ts}\"",
-    "spec": "ts-mocha test/*.ts",
-    "test": "npm run lint && npm run spec",
-    "build": "tsc -p tsconfig-build.json",
-    "prepublishOnly": "npm run build"
-  },
-  "repository": "ngryman/reading-time",
-  "keywords": [
-    "read",
-    "time",
-    "read time",
-    "reading time",
-    "medium",
-    "words per minute"
+  "name": "root",
+  "workspaces": [
+    "website",
+    "lib"
   ],
-  "author": "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
-  "contributors": [
-    "Joshua Chen <sidachen2003@gmail.com> (https://joshcena.com)"
-  ],
-  "license": "MIT",
+  "private": true,
   "devDependencies": {
     "@types/chai": "^4.2.21",
     "@types/expect": "^24.3.0",

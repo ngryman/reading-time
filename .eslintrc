@@ -9,7 +9,8 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "prefer-const": "warn",
-    "no-var": "error"
+    "no-var": "error",
+    "no-use-before-define": "off"
   },
   "overrides": [
     {
@@ -17,7 +18,10 @@
       "globals": {
         "describe": true,
         "it": true
-      },
+      }
+    },
+    {
+      "files": ["*.js"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off"
       }
