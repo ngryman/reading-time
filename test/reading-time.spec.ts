@@ -9,9 +9,19 @@ import chai from 'chai'
 
 chai.should()
 
-const test = (words: number | string, expect: Partial<ReadingTimeResult>, options?: Options) =>
+const test = (
+  words: number | string,
+  expect: Partial<ReadingTimeResult>,
+  options?: Options,
+  chars?: number | string
+) =>
   (done: () => void) => {
-    const text = 'number' === typeof words ? generateText(words) : words
+    let text = ''
+    text = 'number' === typeof words ? generateText(words) : words
+
+    if (chars !== undefined) {
+      text += generateText(0, chars)
+    }
 
     if ('string' === typeof words) {
       if (text.includes(' ')) {
@@ -32,21 +42,35 @@ const test = (words: number | string, expect: Partial<ReadingTimeResult>, option
     if (expect.time) {
       res.should.have.property('time', expect.time)
     }
-    if (expect.words) {
-      res.should.have.property('words').to.deep.equal(expect.words)
+    if (expect.counts) {
+      res.should.have.property('counts').to.deep.equal(expect.counts)
     }
     done()
   }
 
-function generateText(words: number) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789àâéèêôùûçÀÂÉÈÔÙÛÇ'
-  const charsLength = chars.length
+function generateText(words: number, chars?: number | string): string {
   let text = ''
+  if (chars !== undefined) {
+    if ('number' === typeof chars) {
+      const cjkChars = '안녕하세요こんにちは你好你好吗'
+      const cjkCharsLength = cjkChars.length
+      for (let i = 0; i < chars; i++) {
+        text += cjkChars[Math.floor(Math.random() * cjkCharsLength)]
+      }
+    }
+    else {
+      text += chars
+    }
+  }
+
+  const latinChars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789àâéèêôùûçÀÂÉÈÔÙÛÇ'
+  const latinCharsLength = latinChars.length
 
   for (let i = 0; i < words; i++) {
     const wordLength = Math.ceil(Math.random() * 10)
     for (let j = 0; j < wordLength; j++) {
-      text += chars[Math.floor(Math.random() * charsLength)]
+      text += latinChars[Math.floor(Math.random() * latinCharsLength)]
     }
     text += ' '
   }
