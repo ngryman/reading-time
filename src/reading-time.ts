@@ -93,20 +93,24 @@ export function countWords(text: string, options: Options = {}): WordCountStats 
       words++
     }
   }
-  return { total: words }
+
+  return { words, chars }
 }
 
 export function readingTimeWithCount(
-  words: WordCountStats,
+  counts: WordCountStats,
   options: Options = {}
 ): ReadingTimeStats {
-  const { wordsPerMinute = 200 } = options
+  const { words, chars } = counts
+  const { wordsPerMinute = 200, charsPerMinute = 500 } = options
   // reading time stats
-  const minutes = words.total / wordsPerMinute
+  const charMinutes = chars / charsPerMinute
+  const wordMinutes = words / wordsPerMinute
+  const totalMinutes = charMinutes + wordMinutes
   // Math.round used to resolve floating point funkiness
   //   http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-  const time = Math.round(minutes * 60 * 1000)
-  const displayed = Math.ceil(parseFloat(minutes.toFixed(2)))
+  const time = Math.round(totalMinutes * 60 * 1000)
+  const displayed = Math.ceil(parseFloat(totalMinutes.toFixed(2)))
 
   return {
     minutes: displayed,
@@ -115,9 +119,9 @@ export function readingTimeWithCount(
 }
 
 export default function readingTime(text: string, options: Options = {}): ReadingTimeResult {
-  const words = countWords(text, options)
+  const counts = countWords(text, options)
   return {
-    ...readingTimeWithCount(words, options),
-    words
+    ...readingTimeWithCount(counts, options),
+    counts
   }
 }
