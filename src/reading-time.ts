@@ -41,7 +41,7 @@ const isAnsiWordBound: WordBoundFunction = (c) => {
   return ' \n\r\t'.includes(c)
 }
 
-const isPunctuation: WordBoundFunction = (c) => {
+const isPunctuation: WordBoundFunction = (c = '') => {
   const charCode = c.charCodeAt(0)
   return codeIsInRanges(
     charCode,
@@ -59,12 +59,16 @@ const isPunctuation: WordBoundFunction = (c) => {
 }
 
 export function countWords(text: string, options: Options = {}): WordCountStats {
-  let words = 0, start = 0, end = text.length - 1
-  const { wordBound: isWordBound = isAnsiWordBound } = options
+  let words = 0, chars = 0, start = 0, end = text.length - 1
+  const { wordBound = isAnsiWordBound } = options
+
+  function isWordOrChar(char: string, isWordBound: WordBoundFunction = wordBound) {
+    return !(isPunctuation(char) || isWordBound(char))
+  }
 
   // fetch bounds
-  while (isWordBound(text[start])) start++
-  while (isWordBound(text[end])) end--
+  while (!isWordOrChar(text[start])) start++
+  while (!isWordOrChar(text[end])) end--
 
   // Add a trailing word bound to make handling edges more convenient
   const normalizedText = `${text}\n`
