@@ -75,24 +75,22 @@ export function countWords(text: string, options: Options = {}): WordCountStats 
 
   // calculate the number of words
   for (let i = start; i <= end; i++) {
-    // A CJK character is a always word;
+    const char = normalizedText[i]
+    let nextChar = normalizedText[i + 1]
+
+    if (isCJK(char)) {
+      chars++
+      // In case of CJK followed by punctuations, those characters have to be eaten as well
+      while (i <= end && (!isWordOrChar(nextChar))) {
+        i++
+        nextChar = normalizedText[i + 1]
+      }
+    }
     // A non-word bound followed by a word bound / CJK is the end of a word.
-    if (
-      isCJK(normalizedText[i]) ||
-      (!isWordBound(normalizedText[i]) &&
-        (isWordBound(normalizedText[i + 1]) || isCJK(normalizedText[i + 1]))
-      )
+    else if (
+      isWordOrChar(char) && (!isWordOrChar(nextChar) || isCJK(nextChar))
     ) {
       words++
-    }
-    // In case of CJK followed by punctuations, those characters have to be eaten as well
-    if (isCJK(normalizedText[i])) {
-      while (
-        i <= end &&
-        (isPunctuation(normalizedText[i + 1]) || isWordBound(normalizedText[i + 1]))
-      ) {
-        i++
-      }
     }
   }
   return { total: words }

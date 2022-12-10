@@ -130,13 +130,13 @@ describe('readingTime()', () => {
   it('should handle text containing links',
     test('word http://ngryman.sh word', {
       minutes: 1,
-      time: 900
+      time: 1500
     }))
 
   it('should handle text containing markdown links',
     test('word [blog](http://ngryman.sh) word', {
       minutes: 1,
-      time: 900
+      time: 1800
     }))
 
   it('should handle text containing one word correctly',
