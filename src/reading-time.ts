@@ -107,7 +107,7 @@ export function readingTimeWithCount(
   const displayed = Math.ceil(parseFloat(minutes.toFixed(2)))
 
   return {
-    minutes: displayed,
+    minutes: Math.ceil(displayed),
     time
   }
 }
