@@ -34,7 +34,7 @@ const stats = readingTime(text);
 // stats: {
 //   minutes: 1,
 //   time: 60000,
-//   words: {total: 200}
+//   counts: { words: 200, chars: 0 }
 // }
 console.log(`The reading time is: ${stats.minutes} min`);
 ```
@@ -72,28 +72,30 @@ Yes. You need to provide the appropriate polyfills. Please refer to your bundler
 
 ### `readingTime(text, options?)`
 
-Returns an object with `minutes`, `time` (in milliseconds), and `words`.
+Returns an object with `minutes`, `time` (in milliseconds), and `counts` of words and characters.
 
 ```ts
 type ReadingTimeResults = {
   minutes: number;
   time: number;
-  words: WordCountStats;
+  counts: WordCountStats;
 };
 ```
 
 - `text`: the text to analyze
 - options (optional)
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
+  - `options.charsPerMinute`: (optional) the characters per minute an average reader can read (default: 500)
   - `options.wordBound`: (optional) a function that returns a boolean value depending on if a character is considered as a word bound (default: spaces, new lines and tabs)
 
 ### `countWords(text, options?)`
 
-Returns an object representing the word count stats:
+Returns an object representing the total count stats. `words` represents the counts of non-CJK words and `chars` represents the number of CJK characters:
 
 ```ts
 type WordCountStats = {
-  total: number;
+  words: number;
+  chars: number;
 };
 ```
 
@@ -108,6 +110,7 @@ Returns an object with `minutes` (rounded minute stats) and `time` (exact time i
 - `words`: the word count stats
 - options (optional)
   - `options.wordsPerMinute`: (optional) the words per minute an average reader can read (default: 200)
+  - `options.charsPerMinute`: (optional) the characters per minute an average reader can read (default: 500)
 
 Note that `readingTime(text, options) === readingTimeWithCount(countWords(text, options), options)`.
 

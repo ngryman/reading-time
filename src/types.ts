@@ -7,6 +7,7 @@
 export type Options = {
   wordBound?: (char: string) => boolean;
   wordsPerMinute?: number;
+  charsPerMinute?: number;
 }
 
 export type ReadingTimeStats = {
@@ -15,9 +16,10 @@ export type ReadingTimeStats = {
 }
 
 export type WordCountStats = {
-  total: number;
+  words: number;
+  chars: number;
 }
 
 export type ReadingTimeResult = ReadingTimeStats & {
-  words: WordCountStats;
+  counts: WordCountStats;
 }
