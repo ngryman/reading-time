@@ -32,6 +32,7 @@ const readingTime = require('reading-time/lib/reading-time');
 const stats = readingTime(text);
 // ->
 // stats: {
+//   text: "1 min read",
 //   minutes: 1,
 //   time: 60000,
 //   words: {total: 200}
@@ -72,10 +73,11 @@ Yes. You need to provide the appropriate polyfills. Please refer to your bundler
 
 ### `readingTime(text, options?)`
 
-Returns an object with `minutes`, `time` (in milliseconds), and `words`.
+Returns an object with `text`, `minutes`, `time` (in milliseconds), and `words`.
 
 ```ts
 type ReadingTimeResults = {
+  text: string;
   minutes: number;
   time: number;
   words: WordCountStats;
