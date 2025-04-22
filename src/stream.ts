@@ -5,7 +5,7 @@
  */
 
 import { countWords } from './reading-time'
-import { Transform, TransformCallback } from 'stream'
+import { Transform, TransformCallback } from 'node:stream'
 import type { Options, WordCountStats } from './types'
 
 class ReadingTimeStream extends Transform {
