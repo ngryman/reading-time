@@ -41,7 +41,7 @@ const isAnsiWordBound: WordBoundFunction = (c) => {
   return ' \n\r\t'.includes(c)
 }
 
-const isPunctuation: WordBoundFunction = (c) => {
+const isPunctuation: WordBoundFunction = (c = '') => {
   const charCode = c.charCodeAt(0)
   return codeIsInRanges(
     charCode,
@@ -59,52 +59,58 @@ const isPunctuation: WordBoundFunction = (c) => {
 }
 
 export function countWords(text: string, options: Options = {}): WordCountStats {
-  let words = 0, start = 0, end = text.length - 1
-  const { wordBound: isWordBound = isAnsiWordBound } = options
+  let words = 0, chars = 0, start = 0, end = text.length - 1
+  const { wordBound = isAnsiWordBound } = options
+
+  function isWordOrChar(char: string, isWordBound: WordBoundFunction = wordBound) {
+    return !(isPunctuation(char) || isWordBound(char))
+  }
 
   // fetch bounds
-  while (isWordBound(text[start])) start++
-  while (isWordBound(text[end])) end--
+  while (!isWordOrChar(text[start])) start++
+  while (!isWordOrChar(text[end])) end--
 
   // Add a trailing word bound to make handling edges more convenient
   const normalizedText = `${text}\n`
 
   // calculate the number of words
   for (let i = start; i <= end; i++) {
-    // A CJK character is a always word;
+    const char = normalizedText[i]
+    let nextChar = normalizedText[i + 1]
+
+    if (isCJK(char)) {
+      chars++
+      // In case of CJK followed by punctuations, those characters have to be eaten as well
+      while (i <= end && (!isWordOrChar(nextChar))) {
+        i++
+        nextChar = normalizedText[i + 1]
+      }
+    }
     // A non-word bound followed by a word bound / CJK is the end of a word.
-    if (
-      isCJK(normalizedText[i]) ||
-      (!isWordBound(normalizedText[i]) &&
-        (isWordBound(normalizedText[i + 1]) || isCJK(normalizedText[i + 1]))
-      )
+    else if (
+      isWordOrChar(char) && (!isWordOrChar(nextChar) || isCJK(nextChar))
     ) {
       words++
     }
-    // In case of CJK followed by punctuations, those characters have to be eaten as well
-    if (isCJK(normalizedText[i])) {
-      while (
-        i <= end &&
-        (isPunctuation(normalizedText[i + 1]) || isWordBound(normalizedText[i + 1]))
-      ) {
-        i++
-      }
-    }
   }
-  return { total: words }
+
+  return { words, chars }
 }
 
 export function readingTimeWithCount(
-  words: WordCountStats,
+  counts: WordCountStats,
   options: Options = {}
 ): ReadingTimeStats {
-  const { wordsPerMinute = 200 } = options
+  const { words, chars } = counts
+  const { wordsPerMinute = 200, charsPerMinute = 500 } = options
   // reading time stats
-  const minutes = words.total / wordsPerMinute
+  const charMinutes = chars / charsPerMinute
+  const wordMinutes = words / wordsPerMinute
+  const totalMinutes = charMinutes + wordMinutes
   // Math.round used to resolve floating point funkiness
   //   http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-  const time = Math.round(minutes * 60 * 1000)
-  const displayed = Math.ceil(parseFloat(minutes.toFixed(2)))
+  const time = Math.round(totalMinutes * 60 * 1000)
+  const displayed = Math.ceil(parseFloat(totalMinutes.toFixed(2)))
 
   return {
     minutes: displayed,
@@ -113,9 +119,9 @@ export function readingTimeWithCount(
 }
 
 export default function readingTime(text: string, options: Options = {}): ReadingTimeResult {
-  const words = countWords(text, options)
+  const counts = countWords(text, options)
   return {
-    ...readingTimeWithCount(words, options),
-    words
+    ...readingTimeWithCount(counts, options),
+    counts
   }
 }

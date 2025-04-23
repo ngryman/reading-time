@@ -9,9 +9,19 @@ import chai from 'chai'
 
 chai.should()
 
-const test = (words: number | string, expect: Partial<ReadingTimeResult>, options?: Options) =>
+const test = (
+  words: number | string,
+  expect: Partial<ReadingTimeResult>,
+  options?: Options,
+  chars?: number | string
+) =>
   (done: () => void) => {
-    const text = 'number' === typeof words ? generateText(words) : words
+    let text = ''
+    text = 'number' === typeof words ? generateText(words) : words
+
+    if (chars !== undefined) {
+      text += generateText(0, chars)
+    }
 
     if ('string' === typeof words) {
       if (text.includes(' ')) {
@@ -32,21 +42,35 @@ const test = (words: number | string, expect: Partial<ReadingTimeResult>, option
     if (expect.time) {
       res.should.have.property('time', expect.time)
     }
-    if (expect.words) {
-      res.should.have.property('words').to.deep.equal(expect.words)
+    if (expect.counts) {
+      res.should.have.property('counts').to.deep.equal(expect.counts)
     }
     done()
   }
 
-function generateText(words: number) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789àâéèêôùûçÀÂÉÈÔÙÛÇ'
-  const charsLength = chars.length
+function generateText(words: number, chars?: number | string): string {
   let text = ''
+  if (chars !== undefined) {
+    if ('number' === typeof chars) {
+      const cjkChars = '안녕하세요こんにちは你好你好吗'
+      const cjkCharsLength = cjkChars.length
+      for (let i = 0; i < chars; i++) {
+        text += cjkChars[Math.floor(Math.random() * cjkCharsLength)]
+      }
+    }
+    else {
+      text += chars
+    }
+  }
+
+  const latinChars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789àâéèêôùûçÀÂÉÈÔÙÛÇ'
+  const latinCharsLength = latinChars.length
 
   for (let i = 0; i < words; i++) {
     const wordLength = Math.ceil(Math.random() * 10)
     for (let j = 0; j < wordLength; j++) {
-      text += chars[Math.floor(Math.random() * charsLength)]
+      text += latinChars[Math.floor(Math.random() * latinCharsLength)]
     }
     text += ' '
   }
@@ -106,13 +130,13 @@ describe('readingTime()', () => {
   it('should handle text containing links',
     test('word http://ngryman.sh word', {
       minutes: 1,
-      time: 900
+      time: 1500
     }))
 
   it('should handle text containing markdown links',
     test('word [blog](http://ngryman.sh) word', {
       minutes: 1,
-      time: 900
+      time: 1800
     }))
 
   it('should handle text containing one word correctly',
@@ -135,38 +159,112 @@ describe('readingTime()', () => {
 })
 
 describe('readingTime CJK', () => {
+  it('should handle less than 1 minute cjk paragraph',
+    test(0, {
+      minutes: 1,
+      time: 12_000
+    }, {}, 100))
+
+  it('should handle 1 minute CJK paragraph',
+    test(0, {
+      minutes: 1,
+      time: 60_000
+    }, {}, 500))
+
+  it('should handle 3 minute CJK paragraph',
+    test(0, {
+      minutes: 3,
+      time: 180_000
+    }, {}, 1500))
+
+  it('should handle a long CJK paragraph',
+    test(0, {
+      minutes: 10,
+      time: 600_000
+    }, {}, 5000))
+
+  it('should handle a short multi-language paragraph',
+    test(500, {
+      minutes: 4,
+      time: 210_000
+    }, {}, 500))
+
+  it('should handle a long multi-language paragraph',
+    test(500, {
+      minutes: 13,
+      time: 750_000
+    }, {}, 5000))
+
+  it('should handle Korean characters with punctuation',
+    test(0, {
+      minutes: 1,
+      time: 1440
+    }, {}, '수원, 언제나 우린 너와 함께 해!'))
+
+  it('should handle Hiragana with punctuation',
+    test(0, {
+      minutes: 1,
+      time: 4560
+    }, {}, '三人寄れば文殊の知恵って言うだろ。みんなで考えれば、いい案が浮かぶかもしれないよ。'))
+
+  it('should handle Chineses characters with punctuation',
+    test(0, {
+      minutes: 1,
+      time: 3120
+    }, {}, '请教别人一次是五分钟的傻子，从不请教别人是一辈子的傻子。'))
+
+  it('should handle Korean characters with latin words',
+    test(0, {
+      minutes: 1,
+      time: 3360 + 3900
+    }, {},
+    `"키스의 고유조건은 입술끼리 만나야 하고 특별한 기술은 필요치 않다" 
+      is Korean version of "The quick brown fox jumps over the lazy dog"`
+    ))
+
+  it('should handle punctuations followed by words',
+    test(`"키스의 고유조건은 입술끼리 만나야 하고 특별한 기술은 필요치 않다"
+      is Korean version of "The quick brown fox jumps over the lazy dog"`, {
+      counts: { words: 13, chars: 28 }
+    }))
+
   it('should handle a CJK paragraph',
     test('今天，我要说中文！（没错，现在这个库也完全支持中文了）', {
-      words: { total: 22 }
+      counts: { words: 0, chars: 22 }
     }))
 
   it('should handle a CJK paragraph with Latin words',
     test('你会说English吗？', {
-      words: { total: 5 }
+      counts: { words: 1, chars: 4 }
     }))
 
   it('should handle a CJK paragraph with Latin punctuation',
     test('科学文章中, 经常使用英语标点... (虽然这段话并不科学)', {
-      words: { total: 22 }
+      counts: { words: 0, chars: 22 }
     }))
 
   it('should handle a CJK paragraph starting and terminating in Latin words',
     test('JoshCena喜欢GitHub', {
-      words: { total: 4 }
+      counts: { words: 2, chars: 2 }
     }))
 
   it('should handle a typical Korean paragraph',
     test('이것은 한국어 단락입니다', {
-      words: { total: 11 }
+      counts: { words: 0, chars: 11 }
     }))
 
   it('should handle a typical Japanese paragraph',
     test('天気がいいから、散歩しましょう', {
-      words: { total: 14 }
+      counts: { words: 0, chars: 14 }
     }))
 
   it('should treat Katakana as one word',
     test('メガナイトありませんか？', {
-      words: { total: 7 }
+      counts: { words: 1, chars: 6 }
+    }))
+
+  it('should handle a very complex paragraph',
+    test('"",안,녕1하!ad c, "세@ .. .. a 10 요...!', {
+      counts: { words: 5, chars: 5 }
     }))
 })

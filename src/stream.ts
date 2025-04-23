@@ -16,12 +16,13 @@ class ReadingTimeStream extends Transform {
     super({ objectMode: true })
 
     this.options = options
-    this.stats = { total: 0 }
+    this.stats = { words: 0, chars: 0 }
   }
 
   _transform(chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback): void {
     const stats = countWords(chunk.toString(encoding), this.options)
-    this.stats.total += stats.total
+    this.stats.words += stats.words
+    this.stats.chars += stats.chars
     callback()
   }
 
